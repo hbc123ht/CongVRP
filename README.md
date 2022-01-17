@@ -58,6 +58,7 @@ def distance_callback(cityA, cityB):
     distance = xDis + yDis
 
     return distance
+    
 CongVRP.RegisterTransitCallback(distance_callback)
 ```
 
