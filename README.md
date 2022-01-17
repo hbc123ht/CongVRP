@@ -40,7 +40,7 @@ cluster.append(newCity)
 ```
 
 ## Khởi tạo lớp chính 
-Để khởi tạo lớp chính là CongVRP, làm như sau:
+Để tạo một object lớp chính là CongVRP, làm như sau:
 ```python
 CongVRP = CongVRP()
 ```
@@ -58,7 +58,7 @@ def distance_callback(cityA, cityB):
     distance = xDis + yDis
 
     return distance
-    
+
 CongVRP.RegisterTransitCallback(distance_callback)
 ```
 
