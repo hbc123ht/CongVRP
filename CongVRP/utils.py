@@ -4,21 +4,64 @@ from CongVRP.model import Cluster
 
 def get_bit(bitmask:int, pos:int):
     """
+    Get bit of a number
+    
+    Args:
+    
+    `bitmask`: The number
+        
+    `pos`: Position of the bit you want to get
+    
+    Returns:
+
+    The value of a bit in a position
     """
     return (bitmask >> (pos)) & 1
 
 def on_bit(bitmask:int, pos:int):
     """
+    Turn on bit of a number
+    
+    Args:
+    
+    `bitmask`: The number
+        
+    `pos`: Position of the bit you want to get
+    
+    Returns:
+
+    The value of the number after turning on the bit in the position
     """
+
     return bitmask + (1 << pos)
 
 def off_bit(bitmask:int, pos:int):
     """
+    Turn off bit of a number
+    
+    Args:
+    
+    `bitmask`: The number
+        
+    `pos`: Position of the bit you want to get
+    
+    Returns:
+
+    The value of the number after turning off the bit in the position
     """
     return bitmask - (1 << pos)
 
 def count_bit(bitmask:int):
     """
+    Count the number of bit having value 1 of a number
+    
+    Args:
+    
+    `bitmask`: The number
+    
+    Returns:
+
+    The number of bit having value 1 of that number
     """
     cnt = 0
     for id in range(70):
@@ -28,7 +71,19 @@ def count_bit(bitmask:int):
     return cnt
   
 def clustering(cluster, n_clusters):
+    """
+    Clustering a cluster
+    
+    Args:
+    
+    `cluster`: The cluster
+        
+    `n_clusters`: Number of clusters you want to cluster
+    
+    Returns:
 
+    The list of child clusters after clustering
+    """
     coor = []
     for city in cluster.city_list:
         coor.append([city.x, city.y])
@@ -44,6 +99,17 @@ def clustering(cluster, n_clusters):
 
 def create_distance(cluster_list, distance_callback):
     """
+    Create distance matrix between each 2 clusters in a cluster list
+    
+    Args:
+    
+    `cluster_list`: The list of clusters
+        
+    `distance_callback`: Function to define the distance between 2 cities.
+    
+    Returns:
+
+    An 2-D array 
     """
     n = len(cluster_list)
     distance = [[0] * n for i in range(n)]
@@ -56,6 +122,19 @@ def create_distance(cluster_list, distance_callback):
 
 def find_optimal_path(distance:list, start, end):
     """
+    Find the most optimal path starting from start node to end node
+    
+    Args:
+    
+    `distance`: The list distance between each 2 nodes
+        
+    `start`: Start node
+
+    `end`: End node
+    
+    Returns:
+
+    A list presenting the path
     """
 
     # the number of nodes
@@ -116,6 +195,23 @@ def find_optimal_path(distance:list, start, end):
     return (path, min_cost)
 
 def find_nearest_city(newCity, path, distance_callback, pos_city_added = None, city_type = None):
+    """
+    Find nearest city when put a new city to a path
+    
+    Args:
+    
+    `newCity`: The object of the new city
+        
+    `path`: The path
+
+    `distance_callback`: The function defining the distance between 2 city
+
+    `city_type` : Tyoe of the city belonging to "drop" or "pickup"
+    
+    Returns:
+
+    Position of the nearest city in the path
+    """
     minCost = np.inf
     pos = None
 
@@ -147,12 +243,44 @@ def find_nearest_city(newCity, path, distance_callback, pos_city_added = None, c
     return pos
 
 def add_city(path, pos, city):
+    """
+    Add city to a defined position in a path
+    
+    Args:
+    
+    `path`: The path  
+
+    `city` : The city
+
+    `pos`: The position 
+    
+    Returns:
+
+    The new path after putting the city
+    """
     new_path = path[:pos]
     new_path.append(city)
     new_path = new_path + path[pos:]
     return new_path
 
 def edit(path, pickupCity, dropCity, distance_callback):
+    """
+    Edit the path to satisfy the requirement of Pickup and Drop
+    
+    Args:
+    
+    `path`: The path  
+
+    `pickupCity` : The city for pickup
+
+    `dropCity`: The city for drop
+
+    `distance_callback`: The function defining the distance between 2 city
+    
+    Returns:
+
+    The new path after editting the city
+    """
     #remove those cities first
     for city in path:
         if city.id == pickupCity: 

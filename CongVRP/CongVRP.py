@@ -12,12 +12,45 @@ class CongVRP:
         self.PickupAndDeliveryConstraint = {}
 
     def RegisterTransitCallback(self, distance_callback):
+        """
+        Register new function to define distance
+        
+        Args:
+
+        `distance_callback` : The function to define distance
+        
+        Returns:
+        """
         self.distance_callback = distance_callback
     
     def AddPickupAndDelivery(self, pickup_index : int, delivery_index : int):
+        """
+        Add a Pickup and Delivery requirement
+        
+        Args:
+
+        `pickup_index` : Index of pickup city
+
+        `dropCity`: Index of drop city
+        
+        Returns:
+
+        """
         self.PickupAndDeliveryConstraint[pickup_index] = delivery_index
 
     def PickupAndDelivery(self, path):
+        """
+        Edit the path to satisfy Pickup and Delivery constraint
+
+
+        Args:
+
+        `path` : The path
+        
+        Returns:
+
+        Path after editting
+        """
         for constraint in self.PickupAndDeliveryConstraint.items():
             pickupCity = constraint[0]
             dropCity = constraint[1]
@@ -25,6 +58,23 @@ class CongVRP:
         return path
 
     def Congalgorithm(self, cluster, start, end, n_clusters = 15):
+        """
+        Find route for VRP
+        
+        Args:
+
+        `cluster` : A cluster containing cities
+
+        `start`: Index of start city
+
+        `end` : Index of end city
+
+        `n_clusters`: Number of cluster to cluster in each cluster
+        
+        Returns:
+
+        The list of cities presenting the path 
+        """
         if (cluster.get_quantity() == 1):
             return [cluster.city_list[0]]
 
@@ -71,12 +121,23 @@ class CongVRP:
 
     def find_route(self, cluster, start, end, n_clusters = 15):
         """
-        cluster: Cluster of city
-        start: index of department city
-        end: index of destination
-        n_cluster: Max number of city in each cluster
-        return: list of city
+        Create route for VRP
+        
+        Args:
+
+        `cluster` : A cluster containing cities
+
+        `start`: Index of start city
+
+        `end` : Index of end city
+
+        `n_clusters`: Number of cluster to cluster in each cluster
+        
+        Returns:
+
+        The list of cities presenting the path with pickup and delivery
         """
+
         final_path = self.Congalgorithm(cluster, start, end, n_clusters)
         final_path = self.PickupAndDelivery(final_path)
         return final_path
