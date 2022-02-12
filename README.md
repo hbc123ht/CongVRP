@@ -14,7 +14,7 @@ Cách đơn giản nhất để khởi động trình thông dịch là sử d�
 * Trên GNU / Linux, command-line có thể được truy cập bởi một số ứng dụng như xterm, Gnome Terminal hoặc Konsole.
 * Trên MAC OS X, thiết bị đầu cuối hệ thống được truy cập thông qua **Application → Utilities → Terminal**.
 
-## Chạy một chương trình python sử dụng lệnh python
+### Chạy một chương trình python sử dụng lệnh python
 
 Cách cơ bản và dễ dàng nhất để chạy một file code python là sử dụng lệnh python. Bạn cần mở command-line và nhập **python3**, theo sau là đường dẫn đến một file code python như sau:
 
@@ -24,7 +24,7 @@ python3 first_script.py
 
 Sau đó, bạn nhấn nút ENTER từ bàn phím và thế là xong. Tuy nhiên, nếu trình biên dịch báo lỗi, bạn có thể muốn kiểm tra PATH hệ thống về python và nơi bạn đã lưu trình biên dịch python của mình. Nếu nó vẫn không hoạt động, hãy cài đặt lại Python trong hệ thống của bạn và thử lại.
 
-## Cài đặt các package 
+### Cài đặt các package 
 
 Các tên của các package python được liệt kê trong `requirements.txt`.
 Để cài đặt dùng lệnh sau trên command-line.
@@ -33,11 +33,9 @@ Các tên của các package python được liệt kê trong `requirements.txt`
 pip3 install -r requirements.txt
 ```
 
-# Hướng dẫn sử dụng
+## Hướng dẫn sử dụng
 
-## Đầu vào
-
-### Dữ liệu đầu vào
+### Đầu vào
 
 Dữ liệu đầu vào sẽ chứa các cặp số thực biểu diễn giá trị của tọa độ X, Y của các điểm cần đến thăm trên bản đồ.
 
@@ -76,11 +74,11 @@ data = [
 ]
 ```
 
-## Tìm lộ trình cho dữ liệu đầu vào
+### Tìm lộ trình cho dữ liệu đầu vào
 
 Từ dữ liệu đầu vào như trên, ta sẽ lập một lộ trình tuân theo ràng buộc Pickup and Delivery cho một phương tiện đi qua tất cả các điểm trong dữ liệu đầu vào.
 
-### Khởi tạo Cluster
+#### Khởi tạo Cluster
 Một đối tượng Cluster là một tập hợp bao gồm các đối tượng City, là đối tượng biểu diễm một điểm ở trong bộ dữ liệu tương ứng với các vị trí cần thăm trên bản đồ.
 
 Đầu tiên ta sẽ tạo một đối tượng Cluster như sau:
@@ -90,7 +88,7 @@ Một đối tượng Cluster là một tập hợp bao gồm các đối tượ
 cluster = Cluster()
 ```
 
-### Khởi tạo City
+#### Khởi tạo City
 
 Một đối tượng **City** sẽ tương ứng với một điểm ở trên bản đồ và bao gồm các tham số sau:
 
@@ -106,7 +104,7 @@ for i in range(0,30):
     cluster.append(newCity)
 ```
 
-## Định nghĩa hàm khoảng cách
+#### Định nghĩa hàm khoảng cách
 Để định nghĩa hàm khoảng cách giữa 2 điểm trên bản đồ, tạo hàm nhận vào là 2 đối tượng City và trả về khoảng cách giữa 2 đối tượng đó là số thực hoặc số nguyên.
 
 Ví dụ:
@@ -119,7 +117,7 @@ def distance_callback(cityA, cityB):
     return distance
 ```
 
-## Khởi tạo lớp chính và đăng kí hàm khoảng cách
+#### Khởi tạo lớp chính và đăng kí hàm khoảng cách
 Để tạo một object lớp chính là CongVRP, làm như sau:
 ```python
 CongVRP = CongVRP()
@@ -133,14 +131,14 @@ CongVRP.RegisterTransitCallback(distance_callback)
 
 
 
-## Thêm ràng buộc Pickup and Delivery
+#### Thêm ràng buộc Pickup and Delivery
 Để thêm một ràng buộc về Pickup and Delivery, gọi hàm CongVRP.AddPickupAndDelivery với đầu vào là 2 số nguyên theo thứ tự chỉ index của điểm pickup và điểm delivery. Cụ thể ví dụ như sau:
 
 ```python
 CongVRP.AddPickupAndDelivery(pickup_index, delivery_index)
 ```
 
-## Lập lộ trình
+#### Lập lộ trình
 
 Đây là bước lập lộ trình, mình sẽ gọi hàm find_route ở lớp CongVRP với các đầu vào như sau:
 
